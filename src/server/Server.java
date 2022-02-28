@@ -30,8 +30,9 @@ public class Server {
 				byte[] lengPart = inputStream.readNBytes(10); // 길이부 10바이트만 read
 				String leng = new String(lengPart); // 길이 저장할 변수
 
-				System.out.println("받은 데이터 길이 부 : " + leng);
+				System.out.println("받은 데이터 길이부 : " + leng);
 
+				// 길이부에서 얻은 길이 만큼 데이터 받아오기
 				byteArr = new byte[Integer.parseInt(leng)];
 
 				int readCount = inputStream.read(byteArr);
@@ -45,8 +46,7 @@ public class Server {
 				OutputStream outputStream = socket.getOutputStream();
 
 				// 보내줄 때는 길이부까지 합쳐서 보내주기
-				String data = new String(lengPart);
-				data += dataPart;
+				String data = leng + dataPart;
 
 				outputStream.write(data.getBytes("UTF-8"));
 				outputStream.flush();
